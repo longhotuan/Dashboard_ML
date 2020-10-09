@@ -4201,27 +4201,20 @@ server <- function(input, output, session){
         
         selecteddata_KW <- selecteddata$`Author Keywords`[complete.cases(selecteddata$`Author Keywords`)]
         keyword <- strsplit(selecteddata_KW, "; ")
-        for (i in 1:length(keyword)){
-            keyword[i] <- as.data.frame(matrix(as.data.frame(keyword[i])))
-        }
+        keyword <- map(keyword, as_tibble)
         keyword2 <- rbindlist(keyword)
         colnames(keyword2)[1]<- "keyword"
         keyword2<- keyword2[complete.cases(keyword2),]
         keyword2$keyword <- str_to_title(keyword2$keyword)
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'modeling', "modelling")
+        keyword2$keyword <- str_replace_all(keyword2$keyword, 'Modeling', "Modelling")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Fishery', "Fisheries")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'algorithms', "algorithm")
+        keyword2$keyword <- str_replace_all(keyword2$keyword, 'Algorithms', "Algorithm")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Machines', "Machine")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'machines', "machine")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'Algorithms', "algorithm")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'methods', "method")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Methods', "method")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'rules', "rule")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Rules', "rule")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Networks', "Network")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Systems', "System")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Pca', "Principal Component Analysis")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'PCA', "Principal Component Analysis")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Principal Components Analysis (Pca)', "Principal Component Analysis")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Principal Component', "Principal Component Analysis")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Principal Components', "Principal Component Analysis")
@@ -4229,20 +4222,15 @@ server <- function(input, output, session){
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Principal Component Analysis Method', "Principal Component Analysis")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Analyses', "Analysis")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Cca', "Canonical Correspondence Analysis")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'CCA', "Canonical Correspondence Analysis")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Redundancy Analysis (Rda)', "Redundancy Analysis")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Neural Network', "Artificial Neural Network")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Artificial Neural Network \\(Ann\\)', "Artificial Neural Network")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Artificial Neural Networks \\(Ann\\)', "Artificial Neural Network")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Artificial Neural Networks \\(Anns\\)', "Artificial Neural Network")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Ann', "Artificial Neural Network")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'ANN', "Artificial Neural Network")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'ANNs', "Artificial Neural Network")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Anns', "Artificial Neural Network")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'ANN', "Artificial Neural Network")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Artificial Artificial Neural Network', "Artificial Neural Network")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Gis', "Geographic Information System")
-        keyword2$keyword <- str_replace_all(keyword2$keyword, 'GIS', "Geographic Information System")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Geographic Information System \\(Gis\\)', "Geographic Information System")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Gis \\(Geographic Information System\\)', "Geographic Information System")
         keyword2$keyword <- str_replace_all(keyword2$keyword, 'Analysis Analysis', "Analysis")
@@ -4281,3 +4269,4 @@ server <- function(input, output, session){
 
 #### Run the application ####
 shinyApp(ui = ui, server = server)
+
